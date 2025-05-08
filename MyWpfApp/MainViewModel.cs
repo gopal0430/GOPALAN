@@ -98,7 +98,7 @@ namespace MyWpfApp.ViewModels
 			string query = @"
 				SELECT top 50
 				
-					 pname, Rate2, mrp 
+					 pname, Rate2, mrp , 
 				FROM Product
 				 WHERE  active='1.0'and  pcode LIKE ? ORDER BY pcode ASC";
 			OdbcParameter[] parameters = new OdbcParameter[]

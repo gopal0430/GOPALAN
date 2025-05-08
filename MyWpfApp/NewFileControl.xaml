@@ -5,46 +5,72 @@
         Height="400"
         Width="600">
     <Grid Margin="10">
-                <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>   <!-- Input Fields -->
-            <RowDefinition Height="Auto"/>   <!-- ProductsDataGrid -->
-            <RowDefinition Height="*"/>      <!-- Bottom section like GrandTotal -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- Input Fields -->
+            <RowDefinition Height="Auto"/>
+            <!-- ProductsDataGrid -->
+            <RowDefinition Height="*"/>
+            <!-- Bottom section like GrandTotal -->
         </Grid.RowDefinitions>
 
         <!-- Input Fields -->
         <StackPanel Orientation="Horizontal"
-                Margin="0,0,0,10">
+                    Margin="0,0,0,10">
             <Label Content="Product:"
-                    VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"/>
             <TextBox x:Name="ProductTextBox"
-                    Width="150"
-                    Margin="5,0"
-                    TextChanged="ProductTextBox_TextChanged"/>
+                     Width="150"
+                     Margin="5,0"
+                     TextChanged="ProductTextBox_TextChanged"/>
             <Label Content="Rate:"
-                    VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"/>
+            <!-- <TextBox x:Name="RateTextBox"
+                    Width="100"
+                    Margin="5,0"/> -->
             <TextBox x:Name="RateTextBox"
-                    Width="100"
-                    Margin="5,0"/>
+                     Width="100"
+                     Visibility="Visible"/>
+
+            <!-- <ComboBox x:Name="RateComboBox"
+                      Width="100"
+                      Visibility="Collapsed"
+                      DisplayMemberPath="Rate"
+                      SelectedValuePath="Rate"
+                      SelectionChanged="RateComboBox_SelectionChanged"/> -->
+            <ComboBox x:Name="RateComboBox"
+                      FontSize="16"
+                      FontFamily="Segoe UI"
+                      Foreground="Black"
+                      Background="White"
+                      Visibility="Collapsed"
+                      PreviewKeyDown="RateComboBox_PreviewKeyDown"
+                      SelectionChanged="RateComboBox_SelectionChanged"/>
+
+
             <Label Content="Quantity:"
-                    VerticalAlignment="Center"/>
+                   VerticalAlignment="Center"/>
             <TextBox x:Name="QuantityTextBox"
-                    Width="100"
-                    Margin="5,0"
-                    KeyDown="QtyTxtBox_KeyDown"/>
+                     Width="100"
+                     Margin="5,0"
+                     KeyDown="QtyTxtBox_KeyDown"/>
+
+            <Button Name="LoadProductsButton" Width="100"
+                     Margin="5,0" Content="Load Products" Click="LoadProductsButton_Click" />
         </StackPanel>
 
         <!-- DataList -->
         <DataGrid x:Name="ProductsDataList"
-                IsReadOnly="True"
-                Grid.Row="1"
-                AutoGenerateColumns="False"
-                CanUserAddRows="False"
-                SelectionMode="Single"
-                Margin="10"
-                VerticalAlignment="Top"
-                Height="200"
-                Visibility="Collapsed"
-                PreviewKeyDown="ProductsDataList_PreviewKeyDown">
+                  IsReadOnly="True"
+                  Grid.Row="1"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  SelectionMode="Single"
+                  Margin="10"
+                  VerticalAlignment="Top"
+                  Height="200"
+                  Visibility="Collapsed"
+                  PreviewKeyDown="ProductsDataList_PreviewKeyDown">
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PName"
                                     Header="Product Name"
@@ -71,16 +97,20 @@
                   PreviewKeyDown="ProductsDataGrid_PreviewKeyDown"
                   SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                  HeadersVisibility="Column" 
+                  HeadersVisibility="Column"
                   Style="{DynamicResource MetroDataGrid}">
-    <DataGrid.Resources>
-        <Style TargetType="DataGridColumnHeader">
-            <Setter Property="Background" Value="LightGray"/>
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        </Style>
-    </DataGrid.Resources>
+            <DataGrid.Resources>
+                <Style TargetType="DataGridColumnHeader">
+                    <Setter Property="Background"
+                            Value="LightGray"/>
+                    <Setter Property="Foreground"
+                            Value="Black"/>
+                    <Setter Property="FontWeight"
+                            Value="Bold"/>
+                    <Setter Property="HorizontalContentAlignment"
+                            Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn x:Name="PNameNative"
                                     Header="Product"

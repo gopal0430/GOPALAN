@@ -37,12 +37,17 @@ namespace MyWpfApp
         // Edit Menu Handlers
         private void Undo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Undo clicked!");
+             SalesRegister salesRegisterWindow = new SalesRegister();
+             salesRegisterWindow.Show();
+            // MainContentArea.Content = new SalesRegister(); // For UserControl
+            //MessageBox.Show("Undo clicked!");
         }
 
         private void Redo_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Redo clicked!");
+             SalesTemplate SalesTemplateWindow = new SalesTemplate();
+             SalesTemplateWindow.Show();
+            // MessageBox.Show("Redo clicked!");
         }
 
         private void Cut_Click(object sender, RoutedEventArgs e)

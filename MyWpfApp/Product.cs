@@ -112,7 +112,7 @@ namespace GDS_Test_data.Models
         public float? SMWRate5 { get; set; }
         public decimal? Total { get; set; }
         public decimal? Quantity { get; set; }
-
+        public string Unit { get; set; }
         public string pname { get; set; }
         public decimal mrp { get; set; }
 
@@ -153,7 +153,7 @@ public class SelectedProduct
 {
     public string PName { get; set; }
     public decimal Rate2 { get; set; }
-    public int Quantity { get; set; }
+    public decimal Quantity { get; set; }
     public decimal Total => Rate2 * Quantity;
     public string Category { get; set; }
 }
