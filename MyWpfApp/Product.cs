@@ -156,6 +156,7 @@ public class SelectedProduct
     public decimal Quantity { get; set; }
     public decimal Total => Rate2 * Quantity;
     public string Category { get; set; }
+     public string Unit { get; set; }
 }
 
 

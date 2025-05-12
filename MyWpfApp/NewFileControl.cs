@@ -9,6 +9,8 @@ using System.Windows.Data;
 using System.Windows.Media;
 using System.Globalization;
 using System.Data.SqlClient;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 
 namespace MyWpfApp
 {
@@ -16,12 +18,16 @@ namespace MyWpfApp
     {
         public ObservableCollection<Product> Products { get; set; }
         // public ObservableCollection<Product.ProductList> Products { get; set; }
-        public ObservableCollection<SelectedProduct> SelectedProducts { get; set; } = new ObservableCollection<SelectedProduct>();
+        // public ObservableCollection<SelectedProduct> LoadedProducts { get; set; } = new ObservableCollection<SelectedProduct>();
+        // public ObservableCollection<SelectedProduct> LoadedProducts { get; set; }
+
+        public ObservableCollection<SelectedProduct> LoadedProducts { get; set; } = new ObservableCollection<SelectedProduct>();
 
 
         public NewFileControl()
         {
             InitializeComponent();
+            this.DataContext = this; // if using code-behind
             PName.FontFamily = new FontFamily("SunTommy y Tamil");
             Products = new ObservableCollection<Product>();
             ProductsDataList.ItemsSource = Products;
@@ -30,6 +36,7 @@ namespace MyWpfApp
             // ProductsDataGrid.PreviewKeyDown += ProductsDataGrid_PreviewKeyDown;
             ProductsDataGrid.PreviewKeyDown += ProductsDataGrid_PreviewKeyDown;
             ProductTextBox.PreviewKeyDown += ProductTextBox_PreviewKeyDown;
+
 
             // // Hook key navigation for DataGrid
             // ProductsDataGrid.KeyDown += ProductsDataGrid_KeyDown;
@@ -53,6 +60,7 @@ namespace MyWpfApp
                 // if (ProductsDataGrid.SelectedItem !=null)
                 if (ProductsDataGrid.SelectedItem is SelectedProduct selected)
                 {
+                    ProductsDataList.Visibility = Visibility.Collapsed; // Hide when text is cleared
                     ProductTextBox.Text = selected.PName;
                     RateTextBox.Text = selected.Rate2.ToString("0.00");
                     QuantityTextBox.Text = selected.Quantity.ToString();
@@ -65,6 +73,15 @@ namespace MyWpfApp
                     e.Handled = true; // To prevent the default DataGrid behavior
                 }
 
+
+                if (e.Key == Key.Delete)
+                {
+                    if (ProductsDataGrid.SelectedItem is SelectedProduct selected1)
+
+                    {
+                        LoadedProducts.Remove(selected1); // ObservableCollection auto-updates UI
+                    }
+                }
 
                 // var selectedItem = ProductsDataGrid.SelectedItem;
                 // if (selectedItem != null)
@@ -519,9 +536,25 @@ namespace MyWpfApp
                     }
                     else
                     {
-                        // Look for existing product
-                        var existingProduct = SelectedProducts
-                            .FirstOrDefault(p => p.PName.Equals(pname, StringComparison.OrdinalIgnoreCase));
+                        // // Look for existing product
+                        // var existingProduct = LoadedProducts
+                        //     .FirstOrDefault(p => p.PName.Equals(pname, StringComparison.OrdinalIgnoreCase));
+
+                        SelectedProduct existingProduct = null;
+
+                        // if (!string.IsNullOrWhiteSpace(pname))
+                        // {
+                        //     existingProduct = LoadedProducts
+                        //         .FirstOrDefault(p => !string.IsNullOrEmpty(p.PName) &&
+                        //                              p.PName.Equals(pname, StringComparison.OrdinalIgnoreCase));
+                        // }
+                        if (LoadedProducts != null && !string.IsNullOrWhiteSpace(pname))
+                        {
+                            existingProduct = LoadedProducts
+                                .FirstOrDefault(p => !string.IsNullOrEmpty(p.PName) &&
+                                                     p.PName.Equals(pname, StringComparison.OrdinalIgnoreCase));
+                        }
+
 
                         if (existingProduct != null)
                         {
@@ -529,6 +562,7 @@ namespace MyWpfApp
                             existingProduct.Quantity += qty;
                             existingProduct.Rate2 = rate; // Optional: overwrite or retain
                         }
+
                         else
                         {
                             // Add new product
@@ -538,14 +572,18 @@ namespace MyWpfApp
                                 Rate2 = rate,
                                 Quantity = qty
                             };
+                            // Ensure LoadedProducts is not null
+                            if (LoadedProducts == null)
+                                LoadedProducts = new ObservableCollection<SelectedProduct>();
 
-                            SelectedProducts.Add(newProduct);
+                            LoadedProducts.Add(newProduct);
+
                             // ProductsDataGrid.Items.Add(newProduct);
                         }
                     }
 
                     // Font for native display (Tamil)
-                    PNameNative.FontFamily = new FontFamily("SunTommy y Tamil");
+                    // PNameNative.FontFamily = new FontFamily("SunTommy y Tamil");
 
                     // Update UI
                     UpdateGrandTotal();
@@ -757,6 +795,45 @@ namespace MyWpfApp
         }
 
 
+
+        private void PrintButton_Click(object sender, RoutedEventArgs e)
+{
+
+
+try
+{
+    ReportDocument report = new ReportDocument();
+}
+catch (Exception ex)
+{
+    MessageBox.Show("Crystal error: " + ex.ToString());
+}
+
+
+
+
+    try
+    {
+        // Load report file from folder
+        string reportPath = @"E:\oryes\trading\oryes2-gst\report\salesbill.rpt"; // Update to your folder path
+        ReportDocument reportDocument = new ReportDocument();
+        reportDocument.Load(reportPath);
+
+        // Optional: set database login if needed
+        // reportDocument.SetDatabaseLogon("user", "password");
+
+        // Send directly to printer
+        reportDocument.PrintToPrinter(1, false, 0, 0); // 1 copy, no collate, start page 0, end page 0
+
+        MessageBox.Show("Report sent to printer successfully.");
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Printing failed: " + ex.Message);
+    }
+}
+
+
         // private void Window_KeyDown(object sender, KeyEventArgs e)
         // {
         //     if (e.Key == Key.F8)
@@ -890,10 +967,14 @@ namespace MyWpfApp
                 // Try to parse the input as an integer multiplier
                 if (decimal.TryParse(input, out decimal multiplier) && multiplier > 0)
                 {
-                    List<Product> products = GetProductsByCategory(selectedCategory, multiplier);
+                    List<SelectedProduct> products = GetProductsByCategory(selectedCategory, multiplier);
                     ProductsDataGrid.ItemsSource = null;
                     ProductsDataGrid.Items.Clear();
-                    ProductsDataGrid.ItemsSource = products;
+                    foreach (var p in products)
+                    {
+                        LoadedProducts.Add(p);
+                    }
+                    ProductsDataGrid.ItemsSource = LoadedProducts;
                     PNameNative.FontFamily = new FontFamily("SunTommy y Tamil");
                 }
                 else
@@ -922,10 +1003,10 @@ namespace MyWpfApp
         // var products = DatabaseHelper.GetEntitiesFromDatabase<Product>(connStr, query, parameters);
         // Products = new ObservableCollection<Product>(products);
 
-        public List<Product> GetProductsByCategory(string category, decimal multiplier)
+        public List<SelectedProduct> GetProductsByCategory(string category, decimal multiplier)
         {
             string connectionString = "Driver={SQL Server};Server=.;Database=rs_gst_27;Trusted_Connection=True;";
-            var productList = new List<Product>();
+            var productList = new List<SelectedProduct>();
             string query = @"
         SELECT 
                 p.pname, 
@@ -987,7 +1068,7 @@ namespace MyWpfApp
                         }
 
 
-                        productList.Add(new Product
+                        productList.Add(new SelectedProduct
                         {
                             PName = reader["pname"].ToString(),
                             Quantity = baseQuantity * multiplier,

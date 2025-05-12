@@ -55,8 +55,17 @@
                      Margin="5,0"
                      KeyDown="QtyTxtBox_KeyDown"/>
 
-            <Button Name="LoadProductsButton" Width="100"
-                     Margin="5,0" Content="Load Products" Click="LoadProductsButton_Click" />
+            <Button Name="LoadProductsButton"
+                    Width="100"
+                    Margin="5,0"
+                    Content="சாம்பார் பொடி"
+                    Click="LoadProductsButton_Click"/>
+
+                     <Button Name="PrintButton"
+                    Width="100"
+                    Margin="5,0"
+                    Content="Print"
+                    Click="PrintButton_Click"/>
         </StackPanel>
 
         <!-- DataList -->
@@ -98,7 +107,8 @@
                   SelectionMode="Single"
                   ScrollViewer.HorizontalScrollBarVisibility="Auto"
                   HeadersVisibility="Column"
-                  Style="{DynamicResource MetroDataGrid}">
+                  Style="{DynamicResource MetroDataGrid}"
+                ItemsSource="{Binding LoadedProducts}">
             <DataGrid.Resources>
                 <Style TargetType="DataGridColumnHeader">
                     <Setter Property="Background"
@@ -115,7 +125,14 @@
                 <DataGridTextColumn x:Name="PNameNative"
                                     Header="Product"
                                     Binding="{Binding PName}"
-                                    Width="*"/>
+                                    Width="*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="FontFamily"
+                                    Value="SunTommy y Tamil"/>
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
                 <DataGridTextColumn Header="RATE"
                                     Binding="{Binding Rate2}"
                                     Width="*"/>

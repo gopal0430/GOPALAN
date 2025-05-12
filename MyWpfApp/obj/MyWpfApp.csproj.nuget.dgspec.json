@@ -43,6 +43,10 @@
         "net8.0-windows7.0": {
           "targetAlias": "net8.0-windows",
           "dependencies": {
+            "CrystalReports.Engine": {
+              "target": "Package",
+              "version": "[13.0.4003, )"
+            },
             "MahApps.Metro": {
               "target": "Package",
               "version": "[2.4.10, )"
@@ -54,6 +58,10 @@
             "System.Data.SqlClient": {
               "target": "Package",
               "version": "[4.9.0, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[9.0.4, )"
             }
           },
           "imports": [
