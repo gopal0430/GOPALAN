@@ -1,0 +1,39 @@
+<Window x:Class="MyWpfApp.SalesTemplate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Sales Template" Height="350" Width="525">
+    <Grid>
+        <!-- UI elements go here -->
+
+        <StackPanel Margin="10">
+    <TextBlock Text="Select Category:" FontSize="16" Margin="0,0,0,5"/>
+    <ComboBox x:Name="CategoryComboBox"
+              SelectionChanged="CategoryComboBox_SelectionChanged"
+              Width="250" Margin="0,0,0,15">
+        <ComboBoxItem Content="Vegetables" />
+        <ComboBoxItem Content="Fruits" />
+    </ComboBox>
+
+    <StackPanel Orientation="Horizontal" Visibility="Collapsed" x:Name="MultiplierPanel" Margin="0,0,0,15">
+        <TextBlock Text="Enter Multiplier:" VerticalAlignment="Center" Margin="0,0,10,0"/>
+        <TextBox x:Name="MultiplierTextBox"
+                 Width="100"
+                 PreviewTextInput="MultiplierTextBox_PreviewTextInput"
+                 KeyDown="MultiplierTextBox_KeyDown"
+                 DataObject.Pasting="MultiplierTextBox_Pasting"/>
+    </StackPanel>
+
+    <DataGrid x:Name="ProductsDataGrid"
+              AutoGenerateColumns="False"
+              Height="300">
+        <DataGrid.Columns>
+            <DataGridTextColumn Header="Product" Binding="{Binding ProductName}" />
+            <DataGridTextColumn Header="Rate" Binding="{Binding Rate1}" />
+            <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" />
+            <DataGridTextColumn Header="Adjusted Qty" Binding="{Binding AdjustedQuantity}" />
+        </DataGrid.Columns>
+    </DataGrid>
+</StackPanel>
+
+    </Grid>
+</Window>
