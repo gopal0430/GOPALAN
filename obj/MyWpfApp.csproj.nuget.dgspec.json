@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj": {}
+    "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj": {}
   },
   "projects": {
-    "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj": {
+    "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
+        "projectUniqueName": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
         "projectName": "MyWpfApp",
-        "projectPath": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
+        "projectPath": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\obj\\",
+        "outputPath": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"

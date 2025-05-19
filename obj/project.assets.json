@@ -1456,11 +1456,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
+      "projectUniqueName": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
       "projectName": "MyWpfApp",
-      "projectPath": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
+      "projectPath": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\MyWpfApp.csproj",
       "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "e:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\obj\\",
+      "outputPath": "E:\\GOPAL\\GDS_Billing_Software\\Merge\\MyWpfApp\\MyWpfApp\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1537,12 +1537,6 @@
     }
   },
   "logs": [
-    {
-      "code": "NU1900",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Error occurred while getting package vulnerability data: Unable to load the service index for source https://api.nuget.org/v3/index.json."
-    },
     {
       "code": "NU1701",
       "level": "Warning",

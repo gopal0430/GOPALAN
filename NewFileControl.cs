@@ -24,7 +24,7 @@ namespace MyWpfApp
         // public ObservableCollection<SelectedProduct> LoadedProducts { get; set; }
 
         public ObservableCollection<SelectedProduct> LoadedProducts { get; set; } = new ObservableCollection<SelectedProduct>();
-        public string UnitName=string.Empty;
+        public string UnitName = string.Empty;
 
         public NewFileControl()
         {
@@ -688,8 +688,8 @@ namespace MyWpfApp
                                 {
                                     PName = pname,
                                     Rate2 = rate,
-                                      Quantity = qty,
-    Unit = UnitName // e.g., "kg" or "gram"
+                                    Quantity = qty,
+                                    Unit = UnitName // e.g., "kg" or "gram"
                                 };
                                 LoadedProducts.Add(newProduct);
                                 ProductsDataGrid.ItemsSource = LoadedProducts;
@@ -883,7 +883,7 @@ namespace MyWpfApp
                             UnitName = productFromList.Caption3;
                             // Default to Rate2
                             RateTextBox.Text = productFromList.Rate2?.ToString("0.00") ?? "0.00";
-                            
+
                             QuantityTextBox.Focus();
 
                         }
@@ -1019,12 +1019,12 @@ namespace MyWpfApp
 
         private void SortProducts()
         {
-            var sorted = Products.OrderBy(p => p.Category == "Discount" || p.Category == "Rice" ? 1 : 0)
-                                 .ThenBy(p => p.pname)
+            var sorted = LoadedProducts.OrderBy(p => p.Category == "Discount" || p.Category == "RICE" ? 1 : 0)
+                                 .ThenBy(p => p.PName)
                                  .ToList();
-            Products.Clear();
+            LoadedProducts.Clear();
             foreach (var item in sorted)
-                Products.Add(item);
+                LoadedProducts.Add(item);
         }
 
         // private void UpdateGrandTotal()
@@ -1067,7 +1067,10 @@ namespace MyWpfApp
                 }
             }
 
-            GrandTotalTextBlock.Text = $"{grandTotal:C}";
+            // GrandTotalTextBlock.Text = $"{grandTotal:C}";
+            GrandTotalTextBlock.Text = grandTotal.ToString("C", new System.Globalization.CultureInfo("en-IN"));
+
+
         }
 
 
@@ -1231,22 +1234,22 @@ namespace MyWpfApp
                         //     : Convert.ToDecimal(reader["Rate1"]);
 
 
-                        string unit = reader["Unit"].ToString().ToLower(); // normalize casing
+                        string unit = reader["Unit"].ToString(); // normalize casing
                         decimal rate;
 
                         switch (unit)
-                        {
-                            case "g":
+                        {//gram
+                            case "fpuhk;":
                             case "ml":
                                 rate = Convert.ToDecimal(reader["Rate1"]);
                                 break;
-
-                            case "kg":
+                            //kilo
+                            case "fpNyh":
                             case "liter":
                                 rate = Convert.ToDecimal(reader["Rate2"]);
                                 break;
-
-                            case "piece":
+                            //piece
+                            case "gP];":
                             case "unit":
                                 rate = Convert.ToDecimal(reader["Rate2"]);
                                 break;
